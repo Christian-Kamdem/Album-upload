@@ -8,9 +8,9 @@
 	<body>
 		<div id="container">
 			<section title="Upload a cover" id="cover">
-				<img src="icones/frame.svg"/>
+				<img id="cover_img" src="icones/frame.svg"/>
 			</section>
-			<center id="add_songs">Add songs</center>
+			<center id="add_songs">+ Add songs</center>
 			<section id="list_songs">				
 			</section>
 			<section id="send">
@@ -19,5 +19,6 @@
 				</span>
 			</section>
 		</div>
+		<script src="scripts/script.js"></script>
 	</body>
 </html>
