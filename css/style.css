@@ -1,0 +1,64 @@
+#container{
+	width: 360px;
+	height: 600px;
+	margin: auto;
+	box-shadow: 5px 5px 2px 2px #e5e5e5;
+	border:1px solid #e5e5e5;
+	border-radius: 4px;
+}
+#cover{
+	width: 95%;
+	height: 40%;
+	margin: auto;
+	margin-top:2%;
+	cursor: pointer;
+}
+#cover img{
+	width: 100%;
+	height: 100%;
+}
+#list_songs{
+	position: relative;
+	height: 30%;
+	width: 95%;
+	margin: auto;
+	margin-top: 2%;
+	border:1px solid #e5e5e5;
+	border-radius: 4px;
+	padding: 1%;
+	overflow: auto;
+}
+#add_songs{
+	font-size: 1.8em;
+	font-family: calibri;
+	display: block;
+	border-radius: 4px;
+	opacity: 0.6;
+	cursor: pointer;
+}
+#send{
+	height:10%;
+	width: 100%;
+	margin-top: 19%;
+}
+#submit{
+	display: block;
+	margin-right: 2%;
+	float: right;
+	margin-bottom: 0%;
+	height: 58%;
+	width: 25%;
+	border-radius: 4px;
+	background-color: #ed624b;
+	color: white;
+	font-size: 1.5em;
+	font-family: calibri;
+	cursor: pointer;
+}
+/*ScrollBar*/
+#list_songs::-webkit-scrollbar{
+	width: 1px;
+}
+#list_songs::-webkit-scrollbar-track{
+	background-color: white; 
+}
