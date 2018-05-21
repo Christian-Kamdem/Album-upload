@@ -8,7 +8,7 @@
 	<body>
 		<div id="container">
 			<section title="Upload a cover" id="cover">
-				<img id="cover_img" src="icones/frame.svg"/>
+				<img id="cover_img" src="icones/add-image.svg"/>
 			</section>
 			<center id="add_songs">+ Add songs</center>
 			<section id="list_songs">				
