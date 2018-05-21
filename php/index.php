@@ -2,13 +2,13 @@
 	$dataReceive = json_decode(file_get_contents('php://input'));
 	$Isimage = true;
 	//On crèe le repertoire de l'album
-	$date = new DateTime();var_dump($dataReceive->songs);
+	$date = new DateTime();
 	$timestamp = $date->getTimeStamp();
 	chdir("../albums");
 	mkdir(''.$timestamp,0777);
 			imageFromString($dataReceive->cover,$Isimage,$timestamp);
 			$i = 0;
-			foreach ($dataReceive->songs as $key => $value) {
+			foreach ($dataReceive->songs as $key => $value) {var_dump($value->name);
 				songUpload($value,$i);
 				$i++;
 			}

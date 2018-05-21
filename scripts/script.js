@@ -26,8 +26,7 @@ function init(){
     	reader.readAsDataURL(files);
     } 
     function pushSong(data){
-    	album.songs.push(data);
-    	return window.URL.createObjectURL(data);
+    	album.songs.push(window.URL.createObjectURL(data));
     }  
 		//Event sur la cover
 	cover.addEventListener("click",()=>{		
