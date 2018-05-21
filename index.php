@@ -15,7 +15,7 @@
 			</section>
 			<section id="send">
 				<span id="submit">
-					<center>Send</center>
+					<center id="submitButton">Send</center>
 				</span>
 			</section>
 		</div>

@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded",()=>{init();}
 ,false);
 
 function init(){
-	var what = "image";
 	const cover = document.getElementById("cover_img");
 	const add_songs = document.getElementById("add_songs");
 	const list_songs = document.getElementById("list_songs");
@@ -11,30 +10,25 @@ function init(){
 	source_songs.type = "file";
 	source_songs.multiple = "true";
 	source_songs.accept = "audio/*"
-	const submit = document.getElementById("submit").firstChild;
+	const submit = document.getElementById("submitButton");
 	const source_cover = document.createElement("input");
 	source_cover.type = "file";
 	source_cover.accept = "images/*";
-	var coverAlbum = "";
-	var album = [];	
+	var album = {cover:"",songs:[]};	
 
 	function UploadFiles(files){
 	 	let elt = "";	
 		let reader = new FileReader();
     	reader.addEventListener("load", function(){
-    		if(what === "image"){
-    			coverAlbum = this.result;   	
-    			cover.src = this.result;
-    		}else if(what === "song"){
-    			if(album.indexOf(this.result) === -1){
-    				album.push(this.result);
-    				elt = `<p>${this.result.name}</p>`;
-    				list_songs.insertAdjacentHTML("beforeend",elt);
-    			}    			
-    		}   		
+    			album.cover = this.result;   	
+    			cover.src = this.result;	
     	},false);
     	reader.readAsDataURL(files);
-    }   
+    } 
+    function pushSong(data){
+    	album.songs.push(data);
+    	return window.URL.createObjectURL(data);
+    }  
 		//Event sur la cover
 	cover.addEventListener("click",()=>{		
 		source_cover.click();		
@@ -51,8 +45,30 @@ function init(){
 		what = "song";
 		let i = 0;
 		while(i<source_songs.files.length){
-			UploadFiles(source_songs.files[i]);
+			pushSong(source_songs.files[i]);
 			i++;
 		}	
 	});	
+	//Ajax pour l'envoie des données
+	submit.addEventListener("click",()=>{
+		var DataToSend = album;
+		console.log(DataToSend);
+		var urlToSend = "php/index.php";
+	let xhrSendAnnonce = new XMLHttpRequest();
+                  xhrSendAnnonce.addEventListener("loadstart", () =>
+                   {    
+                   });
+                  xhrSendAnnonce.addEventListener("load", () =>
+                   {
+                        let response = xhrSendAnnonce.responseText;
+                        console.log(response);
+                        //return new Toast("icons/done.svg",response.message, 3000);
+                   });
+                  xhrSendAnnonce.addEventListener("error",()=>{
+                    //console.log(e.error);
+                  })
+            xhrSendAnnonce.responseType = "text";
+	        xhrSendAnnonce.open('POST',urlToSend, true);
+	        xhrSendAnnonce.send(JSON.stringify(DataToSend));
+	},false);	
 }
