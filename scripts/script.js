@@ -9,24 +9,30 @@ function init(){
 	const source_songs = document.createElement("input");
 	source_songs.type = "file";
 	source_songs.multiple = "true";
-	source_songs.accept = "audio/*"
+	source_songs.accept = "audio/*";
 	const submit = document.getElementById("submitButton");
 	const source_cover = document.createElement("input");
 	source_cover.type = "file";
 	source_cover.accept = "images/*";
-	var album = {cover:"",songs:[]};	
+	var album = new FormData();
+	album.append("efds","qdfq");
+
+	var cpt = 0;
 
 	function UploadFiles(files){
 	 	let elt = "";	
 		let reader = new FileReader();
     	reader.addEventListener("load", function(){
-    			album.cover = this.result;   	
-    			cover.src = this.result;	
+    			album.append("cover",this.result);
+    			cover.src = this.result;
     	},false);
-    	reader.readAsDataURL(files);
+    	reader.readAsDataURL(files);  		
     } 
     function pushSong(data){
-    	album.songs.push(window.URL.createObjectURL(data));
+    	album.append(data.name,data);
+    	for(let x of album.values()){
+		console.log(x);
+	}
     }  
 		//Event sur la cover
 	cover.addEventListener("click",()=>{		
@@ -45,13 +51,12 @@ function init(){
 		let i = 0;
 		while(i<source_songs.files.length){
 			pushSong(source_songs.files[i]);
+			cpt++;
 			i++;
 		}	
 	});	
 	//Ajax pour l'envoie des données
 	submit.addEventListener("click",()=>{
-		var DataToSend = album;
-		console.log(DataToSend);
 		var urlToSend = "php/index.php";
 	let xhrSendAnnonce = new XMLHttpRequest();
                   xhrSendAnnonce.addEventListener("loadstart", () =>
@@ -68,6 +73,6 @@ function init(){
                   })
             xhrSendAnnonce.responseType = "text";
 	        xhrSendAnnonce.open('POST',urlToSend, true);
-	        xhrSendAnnonce.send(JSON.stringify(DataToSend));
+	        xhrSendAnnonce.send(album);
 	},false);	
 }

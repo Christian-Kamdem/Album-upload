@@ -1,19 +1,18 @@
 <?php
-	$dataReceive = json_decode(file_get_contents('php://input'));
-	$Isimage = true;
 	//On crèe le repertoire de l'album
 	$date = new DateTime();
 	$timestamp = $date->getTimeStamp();
+	$dataReceive = file_get_contents('php://input');
 	chdir("../albums");
 	mkdir(''.$timestamp,0777);
-			imageFromString($dataReceive->cover,$Isimage,$timestamp);
-			$i = 0;
-			foreach ($dataReceive->songs as $key => $value) {var_dump($value->name);
-				songUpload($value,$i);
+	$i = 0;
+			imageFromString($_POST["cover"],$timestamp);
+			foreach ($_FILES as $key) {
+				songUpload($key["tmp_name"],$timestamp,$i);
 				$i++;
 			}
 		//imageFromString($dataReceive->cover);
-	function imageFromString($data,$Isimage,$repertoire){		 
+	function imageFromString($data,$repertoire){		 
 	     $repertoireUpload = ''.$repertoire;
 	     list($type, $data) = explode(';base64,', $data, 2);
 	     $data = str_replace(' ', '+', $data);	     
@@ -27,9 +26,12 @@
 	     	imagedestroy($source);	     	    
 	     //																			  											  
 	}
-	function songUpload($file,$nb){
-		$target_dir = "uploads/";
-		move_uploaded_file($file,$target_dir.$nb);
+	function songUpload($file,$destination,$nb){
+		if(move_uploaded_file($file,$destination.$nb.".mp3")){
+			echo "Album uploadé!";
+		}else{
+			echo "Erreur lors de l'upload du son!";
+		}
 		/*$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 		$uploadOk = 1;
 		//$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));		
