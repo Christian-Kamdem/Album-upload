@@ -11,7 +11,11 @@
 				<img id="cover_img" src="icones/add-image.svg"/>
 			</section>
 			<center id="add_songs">+ Add songs</center>
-			<section id="list_songs">				
+			<section id="album_informations">
+				<input id="artist" type="texte"  placeholder="Artist name"/>
+				<input id="album_title" type="texte"  placeholder="Album title"/>
+				<span>Nombre de fichiers audios : </span><span id="nb_songs">0</span>			
+				<br/><br/><br/><center id="etat"></center>	
 			</section>
 			<section id="send">
 				<span id="submit">

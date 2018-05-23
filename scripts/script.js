@@ -7,6 +7,8 @@ function init(){
 	const add_songs = document.getElementById("add_songs");
 	const list_songs = document.getElementById("list_songs");
 	const source_songs = document.createElement("input");
+	const nb_songs = document.getElementById("nb_songs");
+	var cpt_songs = 0;
 	source_songs.type = "file";
 	source_songs.multiple = "true";
 	source_songs.accept = "audio/*";
@@ -44,16 +46,18 @@ function init(){
 	});
 		//Event sur Add song
 	add_songs.addEventListener("click",()=>{		
-		source_songs.click();		
+		source_songs.click();				
 	},false);
 	source_songs.addEventListener("change",()=>{
 		what = "song";
 		let i = 0;
 		while(i<source_songs.files.length){
 			pushSong(source_songs.files[i]);
+			cpt_songs++;
 			cpt++;
 			i++;
-		}	
+		}
+		nb_songs.innerHTML = cpt_songs;	
 	});	
 	//Ajax pour l'envoie des données
 	submit.addEventListener("click",()=>{
