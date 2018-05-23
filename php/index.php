@@ -1,14 +1,14 @@
 <?php
 	//On crèe le repertoire de l'album
 	$date = new DateTime();
-	$timestamp = $date->getTimeStamp();
+	$repertoire = $_POST['album_title'];
 	$dataReceive = file_get_contents('php://input');
 	chdir("../albums");
-	mkdir(''.$timestamp,0777);
+	mkdir(''.$repertoire,0777);
 	$i = 0;
-			imageFromString($_POST["cover"],$timestamp);
+			imageFromString($_POST["cover"],$repertoire);
 			foreach ($_FILES as $key) {
-				songUpload($key["tmp_name"],$timestamp,$i);
+				songUpload($key["tmp_name"],$repertoire,$i);
 				$i++;
 			}
 		//imageFromString($dataReceive->cover);
@@ -27,8 +27,9 @@
 	     //																			  											  
 	}
 	function songUpload($file,$destination,$nb){
-		if(move_uploaded_file($file,$destination.$nb.".mp3")){
-			echo "Album uploadé!";
+		if(move_uploaded_file($file,$nb.".mp3")){
+			unset($file);
+			echo "Fichier audio ".$nb." uploadé!";
 		}else{
 			echo "Erreur lors de l'upload du son!";
 		}

@@ -8,6 +8,8 @@ function init(){
 	const list_songs = document.getElementById("list_songs");
 	const source_songs = document.createElement("input");
 	const nb_songs = document.getElementById("nb_songs");
+	const artist = document.getElementById("artist");
+	const album_title = document.getElementById("album_title");
 	var cpt_songs = 0;
 	source_songs.type = "file";
 	source_songs.multiple = "true";
@@ -17,7 +19,6 @@ function init(){
 	source_cover.type = "file";
 	source_cover.accept = "images/*";
 	var album = new FormData();
-	album.append("efds","qdfq");
 
 	var cpt = 0;
 
@@ -60,23 +61,33 @@ function init(){
 		nb_songs.innerHTML = cpt_songs;	
 	});	
 	//Ajax pour l'envoie des données
-	submit.addEventListener("click",()=>{
-		var urlToSend = "php/index.php";
-	let xhrSendAnnonce = new XMLHttpRequest();
-                  xhrSendAnnonce.addEventListener("loadstart", () =>
-                   {    
-                   });
-                  xhrSendAnnonce.addEventListener("load", () =>
-                   {
-                        let response = xhrSendAnnonce.responseText;
-                        console.log(response);
-                        //return new Toast("icons/done.svg",response.message, 3000);
-                   });
-                  xhrSendAnnonce.addEventListener("error",()=>{
-                    //console.log(e.error);
-                  })
-            xhrSendAnnonce.responseType = "text";
-	        xhrSendAnnonce.open('POST',urlToSend, true);
-	        xhrSendAnnonce.send(album);
-	},false);	
+	submit.addEventListener("click",()=>{				
+		if(artist.value !== "Artist" && album_title.value !== "Title"){
+			/*On enregistre le nom de l'artiste et
+				le titre de l'album dans le fromData
+			*/ 
+			album.append("artist",artist.value);
+			album.append("album_title",album_title.value);
+				var urlToSend = "php/index.php";
+				let xhrSendAnnonce = new XMLHttpRequest();
+			                  xhrSendAnnonce.addEventListener("loadstart", () =>
+			                   {    
+			                   });
+			                  xhrSendAnnonce.addEventListener("load", () =>
+			                   {
+			                        let response = xhrSendAnnonce.responseText;
+			                        console.log(response);
+			                        //return new Toast("icons/done.svg",response.message, 3000);
+			                   });
+			                  xhrSendAnnonce.addEventListener("error",()=>{
+			                    //console.log(e.error);
+			                  })
+			            xhrSendAnnonce.responseType = "text";
+				        xhrSendAnnonce.open('POST',urlToSend, true);
+				        xhrSendAnnonce.send(album);
+					
+	}else{
+		alert("Please add artist name and album title!");
+	}
+	},false);
 }
