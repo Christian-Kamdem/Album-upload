@@ -53,7 +53,9 @@ function init(){
 		what = "song";
 		let i = 0;
 		while(i<source_songs.files.length){
-			pushSong(source_songs.files[i]);
+			if(existence_son(source_songs.files[i].name,album) === false){
+				pushSong(source_songs.files[i]);
+			}			
 			cpt_songs++;
 			cpt++;
 			i++;
@@ -90,4 +92,13 @@ function init(){
 		alert("Please add artist name and album title!");
 	}
 	},false);
+}
+/*Fonction pour tester si le titre d'un fichier audio 
+existe déjà dans la plyslist avant de l'ajouter*/
+function existence_son(nom,album){
+	if(album.indexOf(nom) === 0){
+			return true;
+		}else{
+		return false;	
+	}
 }
